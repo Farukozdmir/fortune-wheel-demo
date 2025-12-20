@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ae971e72e7fe241afe1bbee0b32c08, type: 3}
+  m_Name: GoldenWheelItems
+  m_EditorClassIdentifier: 
+  _items:
+  - {fileID: 11400000, guid: 2746054feb92cf34f9bfbbbcc87624bc, type: 2}
+  - {fileID: 11400000, guid: 404d843e7b6869349905434f0f4c9c76, type: 2}
+  - {fileID: 11400000, guid: 34f07be319556bd428d8788e13638f65, type: 2}
+  - {fileID: 11400000, guid: b58f633e0cf6f7c41821f4d662d572a5, type: 2}
+  - {fileID: 11400000, guid: 68268f44b0c69ef41bcee0a8587a321e, type: 2}
+  - {fileID: 11400000, guid: 89b92822034077d4c8303eaf788e9bf1, type: 2}
+  - {fileID: 11400000, guid: 1e8e46c126329cb4cb47beca91302c55, type: 2}
+  - {fileID: 11400000, guid: cb5ae5ff5b78504439f8e6b9c97c0553, type: 2}
+  - {fileID: 11400000, guid: b64ecf08563f8ed468f262fa7718aea1, type: 2}
+  - {fileID: 11400000, guid: 56b096197ba7f5149bcfd9bfb2086ca4, type: 2}
+  - {fileID: 11400000, guid: 5efd195675c0803498872ec7bbbcd51e, type: 2}
+  - {fileID: 11400000, guid: 8a7a59c58a07f6240a525a3357db5cbf, type: 2}
+  - {fileID: 11400000, guid: 688aee81216e3a24695606968e385f8f, type: 2}
