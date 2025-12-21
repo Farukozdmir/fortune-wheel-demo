@@ -1,22 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SlotSpawner : MonoBehaviour
+public class WheelSlotSpawner : MonoBehaviour
 {
-    [SerializeField] private ItemDatabaseSO _bronzeSpinDatabase, _silverSpinDatabase, _goldenSpinDatabase;
+
+    // Databases
+    [Header ("Databases")]
+
+    [SerializeField] private ItemDatabaseSO _bronzeSpinDatabase;
+    [SerializeField] private ItemDatabaseSO _silverSpinDatabase;
+    [SerializeField] private ItemDatabaseSO _goldenSpinDatabase;
+
+    // References
+    [Header ("Referances")]
+
     [SerializeField] private GameObject _slotPrefab;
-    [SerializeField] private WheelScript _wheelScript;
+    [SerializeField] private ZoneController _zoneController;
+
+    // Slot Settings
+
     private int _slotCount;
-    public UI_Slot selectedSlot;
+
     // Selected Slot
+
+    private WheelSlotController _selectedSlot;
+    public WheelSlotController SelectedSlot { get { return _selectedSlot; } }
+
     private int _selectedSlotIndex;
-    public int SelectedSlotIndex
-    {
-        get { return _selectedSlotIndex; }
-    }
+    public int SelectedSlotIndex { get { return _selectedSlotIndex; } }
+
+    // Death Slot
 
     private int _deathSlotIndex;
+
 
     void Start()
     {
@@ -33,14 +48,16 @@ public class SlotSpawner : MonoBehaviour
         int zoneMultiplier;
         _selectedSlotIndex = Random.Range(0,_slotCount);
         _deathSlotIndex = Random.Range(0,_slotCount);
+
+        Vector3 wheelCenter = _zoneController.gameObject.transform.position;
         
 
-        if (_wheelScript.isSuperZone) 
+        if (_zoneController.IsSuperZone) 
         {
             zoneMultiplier = 10;
             itemDatabase = _goldenSpinDatabase;
         }
-        else if (_wheelScript.isSafeZone) 
+        else if (_zoneController.IsSafeZone) 
         {
             zoneMultiplier = 5;
             itemDatabase = _silverSpinDatabase;
@@ -51,25 +68,25 @@ public class SlotSpawner : MonoBehaviour
             itemDatabase = _bronzeSpinDatabase;
         }
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < _slotCount; i++)
         {
             
             ItemDataSO item = itemDatabase.GetRandom();
-
             GameObject slot = Instantiate(_slotPrefab , gameObject.transform);
+            WheelSlotController slotController = slot.GetComponent<WheelSlotController>();
 
-            if(_deathSlotIndex == i && !_wheelScript.isSuperZone && !_wheelScript.isSafeZone)
+            if(_deathSlotIndex == i && !_zoneController.IsSuperZone && !_zoneController.IsSafeZone)
             {
-                slot.GetComponent<UI_Slot>().SetDeath(_wheelScript.gameObject.transform.position , _deathSlotIndex);
+                slotController.SetDeath(wheelCenter , _deathSlotIndex);
             }
             else
             {
-                slot.GetComponent<UI_Slot>().SetSlot(item , i , zoneMultiplier , _wheelScript.gameObject.transform.position);
+                slotController.SetSlot(item , i , zoneMultiplier , wheelCenter);
             }
 
             if (SelectedSlotIndex == i)
             {
-                selectedSlot = slot.GetComponent<UI_Slot>();
+                _selectedSlot = slotController;
             }
         }
     }

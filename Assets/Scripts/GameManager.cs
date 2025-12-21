@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int _currentRound = 1;
+    private int _currentRound = 1;
+    public int CurrentRound {get{return _currentRound;}}
     [SerializeField] private int _spinTime = 4;
     public int SpinTime {get {return _spinTime;}}
     [SerializeField] private int _slotCount = 8;
@@ -15,5 +14,15 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+    }
+
+    public void NextRound()
+    {
+        _currentRound ++;
+    }
+
+    public void ResetRound()
+    {
+        _currentRound = 1;
     }
 }
