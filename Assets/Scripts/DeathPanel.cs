@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class DeathPanel : MonoBehaviour
 {
-    private Button _giveUpButton, _reviveWithGoldButton, _reviveWithAddButton;
+    [SerializeField] private Button _giveUpButton, _reviveWithGoldButton, _reviveWithAddButton;
     [SerializeField] private WheelSlotSpawner _slotSpawner;
     [SerializeField] private UnbankedRewardPanel _unbankedRewards;
     [SerializeField] private WheelController _wheelScript;
+    [SerializeField] private AudioSource _audioSource;
 
     void OnValidate()
     {
@@ -17,20 +18,31 @@ public class DeathPanel : MonoBehaviour
         if (_reviveWithGoldButton == null) _reviveWithGoldButton = transform.Find("ui_button_revive_with_gold")?.GetComponent<Button>();
 
         if (_reviveWithAddButton == null) _reviveWithAddButton = transform.Find("ui_button_revive_with_ad")?.GetComponent<Button>();
+
+        
+    }
+
+    void Start()
+    {
+        _giveUpButton.onClick.RemoveAllListeners();
+        _reviveWithAddButton.onClick.RemoveAllListeners();
+        _reviveWithGoldButton.onClick.RemoveAllListeners();
+
+        _giveUpButton.onClick.AddListener(Restart);
+        _reviveWithAddButton.onClick.AddListener(Revive);
+        _reviveWithGoldButton.onClick.AddListener(Revive);
+
+        if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
     {
-        _giveUpButton.onClick.AddListener(Restart);
-        _reviveWithAddButton.onClick.AddListener(Revive);
-        _reviveWithGoldButton.onClick.AddListener(Revive);
+        _audioSource.Play();
     }
 
     void OnDisable()
     {
-        _giveUpButton.onClick.RemoveListener(Restart);
-        _reviveWithAddButton.onClick.RemoveListener(Revive);
-        _reviveWithGoldButton.onClick.RemoveListener(Revive);
+        _audioSource.Stop();
     }
     public void Restart()
     {

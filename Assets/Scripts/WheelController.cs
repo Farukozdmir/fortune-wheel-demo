@@ -6,7 +6,7 @@ public class WheelController : MonoBehaviour
 {
     // Core References
     
-    private RectTransform _spinRectTransform;
+    [SerializeField] private RectTransform _spinRectTransform;
     [SerializeField] private Button _spinButton;
 
     // Spin Settings
@@ -31,11 +31,12 @@ public class WheelController : MonoBehaviour
     [SerializeField] private ZoneController _zoneController;
 
     // Audio
-    [Header("Spin Feedback")]
+    [Header("Audio")]
 
     [SerializeField] private float _tickAngle = 22.5f;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _tickSound;
+    [SerializeField] private AudioClip _moveSound;
     private float _lastTickAngle;
 
 
@@ -50,7 +51,7 @@ public class WheelController : MonoBehaviour
             _spinRectTransform = GetComponent<RectTransform>();
 
         if (_spinButton == null)
-            _spinButton = gameObject.GetComponent<Button>();
+            _spinButton = transform.Find("ui_button_spin").GetComponent<Button>();
     }
 
     void Start()
@@ -59,16 +60,9 @@ public class WheelController : MonoBehaviour
         _slotCount = GameManager.instance.SlotCount;
         
         _sliceAngle = 360f / _slotCount;
-    }
 
-    void OnEnable()
-    {
+        _spinButton.onClick.RemoveAllListeners();
         _spinButton.onClick.AddListener(StartSpin);
-    }
-
-    void OnDisable()
-    {
-        _spinButton.onClick.RemoveListener(StartSpin);
     }
 
     public void StartSpin()
@@ -86,7 +80,7 @@ public class WheelController : MonoBehaviour
 
         _spinRectTransform
             .DORotate(new Vector3(0f, 0f, -1440 - (wheelSlotSpawner.SelectedSlotIndex * _sliceAngle)), _spinTime, RotateMode.FastBeyond360)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
             .OnUpdate(PlayTick)
             .OnComplete(GetRewards);
     }
@@ -121,39 +115,45 @@ public class WheelController : MonoBehaviour
         seq.Append(
             selectedSlotTransform
             .DOScale( Vector3.one * 2f, _rewardAnimScaleTime)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
+            .OnComplete(PlayMoveSound)
             );
 
         seq.Join(
             selectedSlotTransform
             .DOMove(gameObject.transform.position , _rewardAnimScaleTime)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
             );
 
         seq.Join(
             selectedSlotTransform
             .DORotate(new Vector3(0f,0f,-360) , _rewardAnimScaleTime /3 , RotateMode.FastBeyond360)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
         );
         
         seq.Append(
             selectedSlotTransform
             .DOMove( lastSlotRectTransform.position, _rewardAnimMoveTime)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
             .OnComplete(OnSpinComplete)
             );
 
         seq.Join(
             selectedSlotTransform
             .DORotate(Vector3.zero, _rewardAnimMoveTime, RotateMode.Fast)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
         );
 
         seq.Join(
             selectedSlotTransform
             .DOScale( Vector3.one * 0.25f,_rewardAnimMoveTime)
-            .SetEase(Ease.OutExpo)
+            .SetEase(Ease.OutCubic)
         );
+    }
+
+    void PlayMoveSound()
+    {
+        _audioSource.PlayOneShot(_moveSound , 0.5f);
     }
 
     public void OnSpinComplete()

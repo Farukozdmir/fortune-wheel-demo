@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_tr
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr
+  m_SharedData: {fileID: 11400000, guid: d1d4ec363ddb89d4f8b80de8e158fb0f, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 17392222208
+    m_Localized: "\xC7IKI\u015E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 920555896832
+    m_Localized: "BA\u015ELA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 983554342912
+    m_Localized: AYARLAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1014105653248
+    m_Localized: ENVANTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1246000332800
+    m_Localized: "\xC7IKI\u015E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1960013479936
+    m_Localized: CANLAN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2032373612544
+    m_Localized: PES ET
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14291598589952
+    m_Localized: "\xC7IKI\u015E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15501583990784
+    m_Localized: OH HAYIR, BOMBA ELINDE PATLADI!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24770840641536
+    m_Localized: "\xD6d\xFCllerini kaybetmemek i\xE7in kendini dirilt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38487435264000
+    m_Localized: Ses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 38582046179328
+    m_Localized: Dil
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

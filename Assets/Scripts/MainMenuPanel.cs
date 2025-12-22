@@ -3,16 +3,17 @@ using UnityEngine.UI;
 
 public class MainMenuPanel : MonoBehaviour
 {   
-    // Buttons
-    private Button _mainMenuExitButton;
-    private Button _mainMenuInventoryButton;
-    private Button _mainMenuPlayButton;
-    private Button _mainMenuSettingsButton;
+    [Header ("Buttons")]
+    [SerializeField] private Button _mainMenuExitButton;
+    [SerializeField] private Button _mainMenuInventoryButton;
+    [SerializeField] private Button _mainMenuPlayButton;
+    [SerializeField] private Button _mainMenuSettingsButton;
 
     [Space]
     [Header ("Canvases")]
     [SerializeField] private GameObject _gameCanvas;
     [SerializeField] private GameObject _mainMenuCanvas;
+    [SerializeField] private GameObject _settingsCanvas;
 
     [Space]
     [Header ("Scripts")]
@@ -29,19 +30,36 @@ public class MainMenuPanel : MonoBehaviour
         if (_mainMenuSettingsButton == null) _mainMenuSettingsButton = transform.Find("ui_button_main_menu_settings")?.GetComponent<Button>();
     }
 
-    void OnEnable()
+    void Start()
     {
-        _mainMenuPlayButton.onClick.AddListener(StartGame);
+        OpenCanvas(_mainMenuCanvas);
+        
+        _mainMenuPlayButton.onClick.RemoveAllListeners();
+        _mainMenuExitButton.onClick.RemoveAllListeners();
+        _mainMenuInventoryButton.onClick.RemoveAllListeners();
+        _mainMenuSettingsButton.onClick.RemoveAllListeners();
+
+        _mainMenuPlayButton.onClick.AddListener(() => OpenCanvas(_gameCanvas));
+        _mainMenuSettingsButton.onClick.AddListener(() => OpenCanvas(_settingsCanvas));
+        _mainMenuExitButton.onClick.AddListener(OnExitClicked);
     }
 
-    void OnDisable()
+    public void OpenCanvas(GameObject selectedCanvas)
     {
-        _mainMenuPlayButton.onClick.RemoveListener(StartGame);
-    }
-    public void StartGame()
-    {   
-        _gameCanvas.SetActive(true);
-        _deathScreenScript.Restart();
+        _settingsCanvas.SetActive(false);
         _mainMenuCanvas.SetActive(false);
+        _gameCanvas.SetActive(false);
+
+        selectedCanvas.SetActive(true);
+    }
+
+    void OnExitClicked()
+    {
+        Application.Quit();
+    }
+
+    public void OpenMainMenuCanvas()
+    {
+        OpenCanvas(_mainMenuCanvas);
     }
 }
