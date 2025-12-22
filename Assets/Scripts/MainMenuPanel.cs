@@ -19,6 +19,7 @@ public class MainMenuPanel : MonoBehaviour
     [Space]
     [Header ("Scripts")]
     [SerializeField] private DeathPanel _deathScreenScript;
+    [SerializeField] private SettingsPanel _settingsPanel;
 
     void OnValidate()
     {
@@ -34,6 +35,8 @@ public class MainMenuPanel : MonoBehaviour
     void Start()
     {
         OpenCanvas(_mainMenuCanvas);
+        _settingsPanel.LoadLanguage();
+        _settingsPanel.LoadVolume();
         
         _mainMenuPlayButton.onClick.RemoveAllListeners();
         _mainMenuExitButton.onClick.RemoveAllListeners();

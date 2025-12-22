@@ -12,6 +12,7 @@ public class DeathPanel : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private WarningManager _warningManager;
+    [SerializeField] private RoundCounterWheelController _roundCounterWheelController;
 
     void OnValidate()
     {
@@ -48,10 +49,7 @@ public class DeathPanel : MonoBehaviour
     }
     public void Restart()
     {
-        _slotSpawner.ClearSlots();
-        _unbankedRewards.ClearRewardSlots();
-        _slotSpawner.SpawnSlots();
-        GameManager.instance.ResetRound();
+        _wheelScript.Restart();
         gameObject.SetActive(false);
     }
 

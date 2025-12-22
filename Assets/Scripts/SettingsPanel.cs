@@ -50,7 +50,7 @@ public class SettingsPanel : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void LoadVolume()
+    public void LoadVolume()
     {
         float sliderValue = PlayerPrefs.GetFloat(MasterVolumePrefKey, 0.75f);
 
@@ -78,7 +78,7 @@ public class SettingsPanel : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void LoadLanguage()
+    public void LoadLanguage()
     {
         if (!PlayerPrefs.HasKey(LanguagePrefKey))
             return;

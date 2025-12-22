@@ -47,6 +47,9 @@ public class UnbankedRewardPanel : MonoBehaviour
         if (_lastAddedReward == null)
             return;
 
+        if (!_rewardSlots.ContainsKey(_lastAddedReward.id))
+            return;
+
         UnbankedRewardSlotController slot = _rewardSlots[_lastAddedReward.id];
         slot.SetReward(_lastAddedReward, _unbankedItems[_lastAddedReward]);
     }

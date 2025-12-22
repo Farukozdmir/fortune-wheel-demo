@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ae971e72e7fe241afe1bbee0b32c08, type: 3}
+  m_Name: SilverSlice3
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
+  _items:
+  - {fileID: 11400000, guid: 3875201fc02910e4aa8b784ba0c723eb, type: 2}
+  - {fileID: 11400000, guid: 3a8cd4a7f403cdd4e8987f33e3da1e29, type: 2}
+  - {fileID: 11400000, guid: 68544744690b66a4bb481c650bfa7590, type: 2}

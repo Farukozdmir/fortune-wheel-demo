@@ -6,6 +6,7 @@ public class ZoneController : MonoBehaviour
 
     [SerializeField] private Image _wheelImage;
     [SerializeField] private Image _wheelIndicatorImage;
+    [SerializeField] private Image _roundCounterWheelImage;
     
     [Space]
     [Header ("Wheel Sprites")]
@@ -56,6 +57,7 @@ public class ZoneController : MonoBehaviour
     {
         _wheelImage.sprite = wheelSprite;
         _wheelIndicatorImage.sprite = indicatorSprite;
+        _roundCounterWheelImage.sprite = wheelSprite;
     }
 
 }

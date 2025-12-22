@@ -27,7 +27,7 @@ public class WheelExitButtonController : MonoBehaviour
 
     void TryExit()
     {
-        if ((_zoneController.IsSafeZone || _zoneController.IsSuperZone) && !_wheelController._isSpinning)
+        if ((_zoneController.IsSafeZone || _zoneController.IsSuperZone || GameManager.instance.CurrentRound == 1) && !_wheelController._isSpinning)
         {
             _inventoryManager.AddItems(_unbankedRewardPanel.GetUnbankedItems());
             _mainMenuPanel.OpenMainMenuCanvas();

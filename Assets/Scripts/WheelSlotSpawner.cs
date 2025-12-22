@@ -6,9 +6,9 @@ public class WheelSlotSpawner : MonoBehaviour
     // Databases
     [Header ("Databases")]
 
-    [SerializeField] private ItemDatabaseSO _bronzeSpinDatabase;
-    [SerializeField] private ItemDatabaseSO _silverSpinDatabase;
-    [SerializeField] private ItemDatabaseSO _goldenSpinDatabase;
+    [SerializeField] private WheelSliceListSO _bronzeSpinDatabase;
+    [SerializeField] private WheelSliceListSO _silverSpinDatabase;
+    [SerializeField] private WheelSliceListSO _goldenSpinDatabase;
 
     // References
     [Header ("Referances")]
@@ -44,7 +44,7 @@ public class WheelSlotSpawner : MonoBehaviour
     {
         ClearSlots();
 
-        ItemDatabaseSO itemDatabase;
+        WheelSliceListSO wheelSliceList;
         int zoneMultiplier;
         _selectedSlotIndex = Random.Range(0,_slotCount);
         _deathSlotIndex = Random.Range(0,_slotCount);
@@ -55,22 +55,22 @@ public class WheelSlotSpawner : MonoBehaviour
         if (_zoneController.IsSuperZone) 
         {
             zoneMultiplier = 10;
-            itemDatabase = _goldenSpinDatabase;
+            wheelSliceList = _goldenSpinDatabase;
         }
         else if (_zoneController.IsSafeZone) 
         {
             zoneMultiplier = 5;
-            itemDatabase = _silverSpinDatabase;
+            wheelSliceList = _silverSpinDatabase;
         }
         else 
         {
             zoneMultiplier = 1;
-            itemDatabase = _bronzeSpinDatabase;
+            wheelSliceList = _bronzeSpinDatabase;
         }
 
         for (int i = 0; i < _slotCount; i++)
         {
-            
+            ItemDatabaseSO itemDatabase = wheelSliceList.sliceLists[i];
             ItemDataSO item = itemDatabase.GetRandom();
             GameObject slot = Instantiate(_slotPrefab , gameObject.transform);
             WheelSlotController slotController = slot.GetComponent<WheelSlotController>();
@@ -97,6 +97,5 @@ public class WheelSlotSpawner : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
     }
 }

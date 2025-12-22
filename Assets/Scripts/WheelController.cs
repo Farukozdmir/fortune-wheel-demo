@@ -26,9 +26,10 @@ public class WheelController : MonoBehaviour
     // Scripts
     [Header("Scripts")] 
 
-    [SerializeField] private WheelSlotSpawner wheelSlotSpawner;
+    [SerializeField] private WheelSlotSpawner _wheelSlotSpawner;
     [SerializeField] private UnbankedRewardPanel _unbankedRewardPanel;
     [SerializeField] private ZoneController _zoneController;
+    [SerializeField] private RoundCounterWheelController _roundCounterWheelController;
 
     // Audio
     [Header("Audio")]
@@ -57,6 +58,7 @@ public class WheelController : MonoBehaviour
     void OnEnable()
     {
         _zoneController.UpdateZone();
+        Restart();
     }
 
     void Start()
@@ -70,6 +72,15 @@ public class WheelController : MonoBehaviour
         _spinButton.onClick.AddListener(StartSpin);
     }
 
+    public void Restart()
+    {
+        _wheelSlotSpawner.ClearSlots();
+        _unbankedRewardPanel.ClearRewardSlots();
+        _wheelSlotSpawner.SpawnSlots();
+        GameManager.instance.ResetRound();
+        _roundCounterWheelController.SetWheel();
+    }
+
     public void StartSpin()
     {
         DOTween.timeScale = 1f;
@@ -80,11 +91,11 @@ public class WheelController : MonoBehaviour
         }
 
         _isSpinning = true;
-        _selectedSlot = wheelSlotSpawner.SelectedSlot;
+        _selectedSlot = _wheelSlotSpawner.SelectedSlot;
         
 
         _spinRectTransform
-            .DORotate(new Vector3(0f, 0f, -1440 - (wheelSlotSpawner.SelectedSlotIndex * _sliceAngle)), _spinTime, RotateMode.FastBeyond360)
+            .DORotate(new Vector3(0f, 0f, -1440 - (_wheelSlotSpawner.SelectedSlotIndex * _sliceAngle)), _spinTime, RotateMode.FastBeyond360)
             .SetEase(Ease.OutCubic)
             .OnUpdate(PlayTick)
             .OnComplete(GetRewards);
@@ -171,11 +182,13 @@ public class WheelController : MonoBehaviour
 
         gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
 
-        wheelSlotSpawner.ClearSlots();
-        wheelSlotSpawner.SpawnSlots();
+        _wheelSlotSpawner.ClearSlots();
+        _wheelSlotSpawner.SpawnSlots();
 
         _isSpinning = false;
+        _roundCounterWheelController.NextRound();
         DOTween.timeScale = 1;
+        
     }
 
     public void DeathSelected()
