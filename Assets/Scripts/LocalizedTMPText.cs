@@ -10,7 +10,7 @@ public class LocalizedTMPText : MonoBehaviour
 {
 
     [Header("INPUT")]
-    [SerializeField] private string _entryKey;
+    public string _entryKey;
 
     [Header("References")]
     [SerializeField] private TextMeshProUGUI _text;
@@ -33,7 +33,7 @@ public class LocalizedTMPText : MonoBehaviour
     }
 
 
-    private void Refresh()
+    public void Refresh()
     {
         _table = LocalizationSettings.StringDatabase.GetTable("UI");
 

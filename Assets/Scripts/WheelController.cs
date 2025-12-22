@@ -14,7 +14,7 @@ public class WheelController : MonoBehaviour
     private float _sliceAngle;
     private int _spinTime;
     private int _slotCount;
-    private bool _isSpinning;
+    public bool _isSpinning {get ; private set;}
 
     // Reward Animation Settings
     [Header("Reward Animation")]
@@ -52,6 +52,11 @@ public class WheelController : MonoBehaviour
 
         if (_spinButton == null)
             _spinButton = transform.Find("ui_button_spin").GetComponent<Button>();
+    }
+
+    void OnEnable()
+    {
+        _zoneController.UpdateZone();
     }
 
     void Start()

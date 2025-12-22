@@ -63,6 +63,14 @@ MonoBehaviour:
     m_Key: settings_language_value
     m_Metadata:
       m_Items: []
+  - m_Id: 271141384503296
+    m_Key: warning_you_dont_have_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271247244541952
+    m_Key: warning_you_cant_leave
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

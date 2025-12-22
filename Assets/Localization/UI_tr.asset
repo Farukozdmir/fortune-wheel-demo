@@ -66,6 +66,14 @@ MonoBehaviour:
     m_Localized: Dil
     m_Metadata:
       m_Items: []
+  - m_Id: 271141384503296
+    m_Localized: "Yeterli alt\u0131n\u0131n\u0131z yok!!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 271247244541952
+    m_Localized: "Sadece Safe Zone ve Super Zone\u2019da ayr\u0131labilirsin!!"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

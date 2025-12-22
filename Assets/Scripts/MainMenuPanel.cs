@@ -14,6 +14,7 @@ public class MainMenuPanel : MonoBehaviour
     [SerializeField] private GameObject _gameCanvas;
     [SerializeField] private GameObject _mainMenuCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+    [SerializeField] private GameObject _inventoryCanvas;
 
     [Space]
     [Header ("Scripts")]
@@ -42,6 +43,7 @@ public class MainMenuPanel : MonoBehaviour
         _mainMenuPlayButton.onClick.AddListener(() => OpenCanvas(_gameCanvas));
         _mainMenuSettingsButton.onClick.AddListener(() => OpenCanvas(_settingsCanvas));
         _mainMenuExitButton.onClick.AddListener(OnExitClicked);
+        _mainMenuInventoryButton.onClick.AddListener(() => OpenCanvas(_inventoryCanvas));
     }
 
     public void OpenCanvas(GameObject selectedCanvas)
@@ -49,6 +51,7 @@ public class MainMenuPanel : MonoBehaviour
         _settingsCanvas.SetActive(false);
         _mainMenuCanvas.SetActive(false);
         _gameCanvas.SetActive(false);
+        _inventoryCanvas.SetActive(false);
 
         selectedCanvas.SetActive(true);
     }

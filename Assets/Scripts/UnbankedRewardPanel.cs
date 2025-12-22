@@ -63,4 +63,9 @@ public class UnbankedRewardPanel : MonoBehaviour
         _rewardSlots.Clear();
     }
 
+    public Dictionary<ItemDataSO, int> GetUnbankedItems()
+    {
+        return new Dictionary<ItemDataSO, int>(_unbankedItems);
+    }
+
 }

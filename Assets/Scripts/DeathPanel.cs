@@ -10,6 +10,8 @@ public class DeathPanel : MonoBehaviour
     [SerializeField] private UnbankedRewardPanel _unbankedRewards;
     [SerializeField] private WheelController _wheelScript;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private InventoryManager _inventoryManager;
+    [SerializeField] private WarningManager _warningManager;
 
     void OnValidate()
     {
@@ -29,8 +31,8 @@ public class DeathPanel : MonoBehaviour
         _reviveWithGoldButton.onClick.RemoveAllListeners();
 
         _giveUpButton.onClick.AddListener(Restart);
-        _reviveWithAddButton.onClick.AddListener(Revive);
-        _reviveWithGoldButton.onClick.AddListener(Revive);
+        _reviveWithAddButton.onClick.AddListener(ReviveWithAd);
+        _reviveWithGoldButton.onClick.AddListener(ReviveWithGold);
 
         if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
     }
@@ -53,9 +55,22 @@ public class DeathPanel : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Revive()
+    public void ReviveWithAd()
     {
         _wheelScript.OnSpinComplete();
         gameObject.SetActive(false);
+    }
+
+    public void ReviveWithGold()
+    {
+        if (_inventoryManager.AddGold(-25))
+        {
+            _wheelScript.OnSpinComplete();
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            _warningManager.AddWarning("warning_you_dont_have_gold");
+        }
     }
 }
