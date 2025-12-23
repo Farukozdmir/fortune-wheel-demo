@@ -14,7 +14,10 @@ public class WheelController : MonoBehaviour
     private float _sliceAngle;
     private float _spinTime;
     private int _slotCount;
-    public bool _isSpinning {get ; private set;}
+    private bool _isSpinning;
+    public bool IsSpinning {get {return _isSpinning;}}
+    private const float FULL_SPINS = 3f;
+
 
     // Reward Animation Settings
     [Header("Reward Animation")]
@@ -78,7 +81,7 @@ public class WheelController : MonoBehaviour
         _unbankedRewardPanel.ClearRewardSlots();
         _wheelSlotSpawner.SpawnSlots();
         GameManager.instance.ResetRound();
-        _roundCounterWheelController.SetWheel();
+        _wheelSlotSpawner.ResetMultiplier();
     }
 
     public void StartSpin()
@@ -95,7 +98,7 @@ public class WheelController : MonoBehaviour
         
 
         _spinRectTransform
-            .DORotate(new Vector3(0f, 0f, -1440 - (_wheelSlotSpawner.SelectedSlotIndex * _sliceAngle)), _spinTime, RotateMode.FastBeyond360)
+            .DORotate(new Vector3(0f, 0f, (FULL_SPINS * 360f) - (_wheelSlotSpawner.SelectedSlotIndex * _sliceAngle)), _spinTime, RotateMode.FastBeyond360)
             .SetEase(Ease.OutCubic)
             .OnUpdate(PlayTick)
             .OnComplete(GetRewards);
@@ -169,7 +172,7 @@ public class WheelController : MonoBehaviour
 
     void PlayMoveSound()
     {
-        _audioSource.PlayOneShot(_moveSound , 0.5f);
+        _audioSource.PlayOneShot(_moveSound);
     }
 
     public void OnSpinComplete()

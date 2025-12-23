@@ -11,10 +11,11 @@ public class WheelSlotSpawner : MonoBehaviour
     [SerializeField] private WheelSliceListSO _goldenSpinDatabase;
 
     // References
-    [Header ("Referances")]
+    [Header ("References")]
 
     [SerializeField] private GameObject _slotPrefab;
     [SerializeField] private ZoneController _zoneController;
+    [SerializeField] private RoundCounterWheelController _roundCounterWheelController;
 
     // Slot Settings
 
@@ -31,7 +32,11 @@ public class WheelSlotSpawner : MonoBehaviour
     // Death Slot
 
     private int _deathSlotIndex;
+
+    // Multiplier
     private int _zoneMultiplier = 1;
+    [SerializeField]private int _multiplier;
+    public int Multiplier {get {return _multiplier;}}
 
 
     void Start()
@@ -40,7 +45,7 @@ public class WheelSlotSpawner : MonoBehaviour
         SpawnSlots();
     }
 
-
+    // Spawns slot and select the death index and selected index
     public void SpawnSlots()
     {
         ClearSlots();
@@ -54,18 +59,18 @@ public class WheelSlotSpawner : MonoBehaviour
 
         Vector3 wheelCenter = _zoneController.gameObject.transform.position;
         
-
+        // Check zone, set multiplier and database
         if (_zoneController.IsSuperZone) 
         {
-            _zoneMultiplier += GameManager.instance.NextZoneMultiplayerIncrease;
+            _zoneMultiplier += GameManager.instance.NextZoneMultiplierIncrease;
             wheelSliceList = _goldenSpinDatabase;
-            specialZoneMultiplier = GameManager.instance._goldenWheelMultiplier;
+            specialZoneMultiplier = GameManager.instance.GoldenWheelMultiplier;
         }
         else if (_zoneController.IsSafeZone) 
         {
-            _zoneMultiplier += GameManager.instance.NextZoneMultiplayerIncrease;
+            _zoneMultiplier += GameManager.instance.NextZoneMultiplierIncrease;
             wheelSliceList = _silverSpinDatabase;
-            specialZoneMultiplier = GameManager.instance._silverWheelMultiplier;
+            specialZoneMultiplier = GameManager.instance.SilverWheelMultiplier;
         }
         else 
         {
@@ -73,6 +78,9 @@ public class WheelSlotSpawner : MonoBehaviour
             specialZoneMultiplier = 1;
         }
 
+        _multiplier = _zoneMultiplier * specialZoneMultiplier;
+
+        // Instantiate slots
         for (int i = 0; i < _slotCount; i++)
         {
             ItemDatabaseSO itemDatabase = wheelSliceList.sliceLists[i];
@@ -82,11 +90,11 @@ public class WheelSlotSpawner : MonoBehaviour
 
             if(_deathSlotIndex == i && !_zoneController.IsSuperZone && !_zoneController.IsSafeZone)
             {
-                slotController.SetDeath(wheelCenter , _deathSlotIndex);
+                slotController.SetDeath(wheelCenter , _deathSlotIndex); // Changes isDeath bool inside the slot controller
             }
             else
             {
-                slotController.SetSlot(item , i , _zoneMultiplier + specialZoneMultiplier , wheelCenter);
+                slotController.SetSlot(item , i , _multiplier , wheelCenter); // Assign itemData to slot, i for rotating around wheelCenter with index.
             }
 
             if (SelectedSlotIndex == i)
@@ -98,10 +106,16 @@ public class WheelSlotSpawner : MonoBehaviour
 
     public void ClearSlots()
     {
-        _zoneMultiplier = 1;
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void ResetMultiplier()
+    {
+        _zoneMultiplier = 1;
+        _multiplier = 1;
+        _roundCounterWheelController.SetWheel();
     }
 }

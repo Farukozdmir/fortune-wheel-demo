@@ -24,9 +24,10 @@ public class WheelSlotController : MonoBehaviour
 
         _amount = item.baseValue * Random.Range(1 , item.baseMultiplier + 1) * zoneMultiplier;
 
-        _slotText.text = "x" + _amount.ToString();
+        _slotText.text = $"x{_amount}";
 
-        gameObject.transform.RotateAround(wheelPosition ,Vector3.forward , slotIndex * 45f);
+
+        gameObject.transform.RotateAround(wheelPosition ,Vector3.forward , slotIndex * (360f / GameManager.instance.SlotCount));
     }
 
     public void SetDeath(Vector3 wheelPosition , int slotIndex)
@@ -35,6 +36,6 @@ public class WheelSlotController : MonoBehaviour
         _slotText.text = string.Empty;
         _isDeath = true;
 
-        gameObject.transform.RotateAround(wheelPosition ,Vector3.forward , slotIndex * 45f);
+        gameObject.transform.RotateAround(wheelPosition ,Vector3.forward , slotIndex * (360f / GameManager.instance.SlotCount));
     }
 }

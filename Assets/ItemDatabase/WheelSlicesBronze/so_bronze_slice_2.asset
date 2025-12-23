@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ae971e72e7fe241afe1bbee0b32c08, type: 3}
+  m_Name: so_bronze_slice_2
+  m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
+  _items:
+  - {fileID: 11400000, guid: 65d60fb37dfa5184bba138e6be8dc2da, type: 2}
+  - {fileID: 11400000, guid: ecd5430f61b543445885e4ebf24f8df6, type: 2}
+  - {fileID: 11400000, guid: dc7a77efd34dac74bb6a65a64ea07fd7, type: 2}
+  - {fileID: 11400000, guid: 4f1e3ec47aef50b42928434896b0396e, type: 2}
+  - {fileID: 11400000, guid: c3f19c4588051db4bb03b22cc2050144, type: 2}
+  - {fileID: 11400000, guid: 5e4a962733d30954d83f5cfaa871ae28, type: 2}
+  - {fileID: 11400000, guid: 280648d052ab92e4f9f82ae55717ab9a, type: 2}

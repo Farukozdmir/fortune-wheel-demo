@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fb1c593e26ea64c95b98753a17317d, type: 3}
+  m_Name: so_slice_list_bronze_wheel
+  m_EditorClassIdentifier: Assembly-CSharp::WheelSliceListSO
+  sliceLists:
+  - {fileID: 11400000, guid: bf5b3b5e7a2b60a4488c5b9f5e5750d9, type: 2}
+  - {fileID: 11400000, guid: 9cfa8a9490c28aa49a39d55b8184cf17, type: 2}
+  - {fileID: 11400000, guid: 03355decfbc99f348964ebd036ecff75, type: 2}
+  - {fileID: 11400000, guid: fd3cf1b5cd09f7e4990d17736e266162, type: 2}
+  - {fileID: 11400000, guid: 86b233e4d1881b647b56e872440703d1, type: 2}
+  - {fileID: 11400000, guid: d758a625236a24e41a040fc4472196f7, type: 2}
+  - {fileID: 11400000, guid: 0ad1bdd4f621b7f4582ec1b9f5d706ed, type: 2}
+  - {fileID: 11400000, guid: 98db0de2cfb59434a84f4809b4e5fc08, type: 2}

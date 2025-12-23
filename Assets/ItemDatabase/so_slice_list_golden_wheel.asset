@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fb1c593e26ea64c95b98753a17317d, type: 3}
+  m_Name: so_slice_list_golden_wheel
+  m_EditorClassIdentifier: 
+  sliceLists:
+  - {fileID: 11400000, guid: 51503e15743deba488a29e262d0abd12, type: 2}
+  - {fileID: 11400000, guid: 49b8b80e4a9605c4ba644f9f38c82d34, type: 2}
+  - {fileID: 11400000, guid: 3d037c8cb54a31640acf9cfff472f50a, type: 2}
+  - {fileID: 11400000, guid: cb243feeb30caac4caac0694d5b146c2, type: 2}
+  - {fileID: 11400000, guid: 256e21a8f20642149840a91214c060e1, type: 2}
+  - {fileID: 11400000, guid: 8b6cd9708a024bd458e6294feee44b85, type: 2}
+  - {fileID: 11400000, guid: 500c421a4366ee54da72396c3cd1a999, type: 2}
+  - {fileID: 11400000, guid: f993a6d2cfef261448c129def3ffe1c4, type: 2}
