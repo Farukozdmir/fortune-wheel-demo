@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
 
-    private Dictionary<ItemDataSO, int> _inventory =
-        new Dictionary<ItemDataSO, int>();
+    private Dictionary<string, int> _inventoryAmounts =
+        new Dictionary<string, int>();
+
+    private Dictionary<string, ItemDataSO> _inventoryDatas =
+        new Dictionary<string, ItemDataSO>();
 
     [SerializeField] private GameObject _inventorySlotPrefab;
     [SerializeField] private GameObject _inventoryPanel;
@@ -33,25 +36,37 @@ public class InventoryManager : MonoBehaviour
         _inventoryExitButton.onClick.AddListener(_mainMenuPanel.OpenMainMenuCanvas);
     }
 
-    public void AddItems(Dictionary<ItemDataSO, int> items)
+    public void AddItems(Dictionary<string, ItemDataSO> items , Dictionary<string, int> amounts)
     {
+        
         foreach (var pair in items)
         {
-            if (pair.Key.id == "cash")
+            string id = pair.Key;
+            ItemDataSO item = pair.Value;
+
+            if (!amounts.TryGetValue(id, out int amount))
+            continue;
+
+            if (id == "cash")
             {
-                AddCash(pair.Value);
+                AddCash(amount);
                 continue;
             }
-            else if(pair.Key.id == "gold")
+            else if(id == "gold")
             {
-                AddGold(pair.Value);
+                AddGold(amount);
                 continue;
             }
 
-            if (_inventory.ContainsKey(pair.Key))
-                _inventory[pair.Key] += pair.Value;
+            if (_inventoryAmounts.ContainsKey(id))
+                _inventoryAmounts[id] += amount;
             else
-                _inventory[pair.Key] = pair.Value;
+                {
+                    _inventoryAmounts[id] = amount;
+
+                    if (!_inventoryDatas.ContainsKey(id))
+                        _inventoryDatas.Add(id, item);
+                }
         }
     }
 
@@ -62,11 +77,14 @@ public class InventoryManager : MonoBehaviour
             Destroy(child.gameObject);
         }
         
-        foreach (var pair in _inventory)
+        foreach (var pair in _inventoryAmounts)
         {
             UnbankedRewardSlotController newSlot = Instantiate(_inventorySlotPrefab,_inventoryPanel.transform).GetComponent<UnbankedRewardSlotController>();
 
-            newSlot.SetReward( pair.Key , pair.Value);
+            if (!_inventoryDatas.TryGetValue(pair.Key, out ItemDataSO item))
+                continue;
+
+            newSlot.SetReward( item , pair.Value);
         }
     }
 

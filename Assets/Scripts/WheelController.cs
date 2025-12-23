@@ -12,7 +12,7 @@ public class WheelController : MonoBehaviour
     // Spin Settings
 
     private float _sliceAngle;
-    private int _spinTime;
+    private float _spinTime;
     private int _slotCount;
     public bool _isSpinning {get ; private set;}
 

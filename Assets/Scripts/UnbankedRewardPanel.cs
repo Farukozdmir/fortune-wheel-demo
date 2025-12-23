@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class UnbankedRewardPanel : MonoBehaviour
 {
-    Dictionary<ItemDataSO , int> _unbankedItems = new Dictionary<ItemDataSO, int>();
-    private Dictionary<string, UnbankedRewardSlotController> _rewardSlots = new Dictionary<string, UnbankedRewardSlotController>();
+    Dictionary<string, int> _rewardAmounts = new();
+    Dictionary<string, UnbankedRewardSlotController> _rewardSlots = new();
+    Dictionary<string, ItemDataSO> _rewardDatas = new();
+
+
     [SerializeField] private GameObject _rewardSlotPrefab;
 
     private ItemDataSO _lastAddedReward;
@@ -13,15 +16,15 @@ public class UnbankedRewardPanel : MonoBehaviour
     {
         _lastAddedReward = item;
 
-        if (_unbankedItems.ContainsKey(item))
-        {
-            _unbankedItems[item] += amount;
-        }
+        if (_rewardAmounts.ContainsKey(item.id))
+            _rewardAmounts[item.id] += amount;
         else
-        {
-            _unbankedItems.Add(item , amount);
-        }
+           {
+            _rewardAmounts.Add(item.id, amount);
+            _rewardDatas.Add(item.id, item);
+            }
     }
+
 
     public RectTransform SpawnSlotIfNeeded(ItemDataSO item)
     {
@@ -47,12 +50,16 @@ public class UnbankedRewardPanel : MonoBehaviour
         if (_lastAddedReward == null)
             return;
 
-        if (!_rewardSlots.ContainsKey(_lastAddedReward.id))
+        if (!_rewardSlots.TryGetValue(_lastAddedReward.id, out var slot))
             return;
 
-        UnbankedRewardSlotController slot = _rewardSlots[_lastAddedReward.id];
-        slot.SetReward(_lastAddedReward, _unbankedItems[_lastAddedReward]);
+        if (!_rewardAmounts.TryGetValue(_lastAddedReward.id, out var amount))
+            return;
+
+
+        slot.SetReward(_lastAddedReward, amount);
     }
+
 
 
     public void ClearRewardSlots()
@@ -62,13 +69,21 @@ public class UnbankedRewardPanel : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        _unbankedItems.Clear();
+        _rewardAmounts.Clear();
         _rewardSlots.Clear();
+        _rewardDatas.Clear();
+        _lastAddedReward = null;
     }
 
-    public Dictionary<ItemDataSO, int> GetUnbankedItems()
+    public Dictionary<string, int> GetRewardAmounts()
     {
-        return new Dictionary<ItemDataSO, int>(_unbankedItems);
+        return new Dictionary<string, int>(_rewardAmounts);
     }
+
+    public Dictionary<string, ItemDataSO> GetRewardDatas()
+    {
+        return new Dictionary<string, ItemDataSO>(_rewardDatas);
+    }
+
 
 }

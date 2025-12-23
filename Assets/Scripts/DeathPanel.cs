@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class DeathPanel : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class DeathPanel : MonoBehaviour
     [SerializeField] private InventoryManager _inventoryManager;
     [SerializeField] private WarningManager _warningManager;
     [SerializeField] private RoundCounterWheelController _roundCounterWheelController;
+    [SerializeField] private VideoPlayer _adVideoPlayer;
 
     void OnValidate()
     {
@@ -54,6 +56,12 @@ public class DeathPanel : MonoBehaviour
     }
 
     public void ReviveWithAd()
+    {
+        _adVideoPlayer.gameObject.SetActive(true);
+        _adVideoPlayer.Play();
+    }
+
+    public void OnVideoFinished()
     {
         _wheelScript.OnSpinComplete();
         gameObject.SetActive(false);

@@ -29,7 +29,7 @@ public class WheelExitButtonController : MonoBehaviour
     {
         if ((_zoneController.IsSafeZone || _zoneController.IsSuperZone || GameManager.instance.CurrentRound == 1) && !_wheelController._isSpinning)
         {
-            _inventoryManager.AddItems(_unbankedRewardPanel.GetUnbankedItems());
+            _inventoryManager.AddItems(_unbankedRewardPanel.GetRewardDatas() , _unbankedRewardPanel.GetRewardAmounts());
             _mainMenuPanel.OpenMainMenuCanvas();
             _unbankedRewardPanel.ClearRewardSlots();
             GameManager.instance.ResetRound();

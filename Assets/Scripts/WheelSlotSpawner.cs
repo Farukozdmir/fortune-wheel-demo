@@ -31,6 +31,7 @@ public class WheelSlotSpawner : MonoBehaviour
     // Death Slot
 
     private int _deathSlotIndex;
+    private int _zoneMultiplier = 1;
 
 
     void Start()
@@ -45,7 +46,9 @@ public class WheelSlotSpawner : MonoBehaviour
         ClearSlots();
 
         WheelSliceListSO wheelSliceList;
-        int zoneMultiplier;
+
+        int specialZoneMultiplier;
+
         _selectedSlotIndex = Random.Range(0,_slotCount);
         _deathSlotIndex = Random.Range(0,_slotCount);
 
@@ -54,18 +57,20 @@ public class WheelSlotSpawner : MonoBehaviour
 
         if (_zoneController.IsSuperZone) 
         {
-            zoneMultiplier = 10;
+            _zoneMultiplier += GameManager.instance.NextZoneMultiplayerIncrease;
             wheelSliceList = _goldenSpinDatabase;
+            specialZoneMultiplier = GameManager.instance._goldenWheelMultiplier;
         }
         else if (_zoneController.IsSafeZone) 
         {
-            zoneMultiplier = 5;
+            _zoneMultiplier += GameManager.instance.NextZoneMultiplayerIncrease;
             wheelSliceList = _silverSpinDatabase;
+            specialZoneMultiplier = GameManager.instance._silverWheelMultiplier;
         }
         else 
         {
-            zoneMultiplier = 1;
             wheelSliceList = _bronzeSpinDatabase;
+            specialZoneMultiplier = 1;
         }
 
         for (int i = 0; i < _slotCount; i++)
@@ -81,7 +86,7 @@ public class WheelSlotSpawner : MonoBehaviour
             }
             else
             {
-                slotController.SetSlot(item , i , zoneMultiplier , wheelCenter);
+                slotController.SetSlot(item , i , _zoneMultiplier + specialZoneMultiplier , wheelCenter);
             }
 
             if (SelectedSlotIndex == i)
@@ -93,6 +98,7 @@ public class WheelSlotSpawner : MonoBehaviour
 
     public void ClearSlots()
     {
+        _zoneMultiplier = 1;
         foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
